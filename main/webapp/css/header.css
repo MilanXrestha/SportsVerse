@@ -1,5 +1,6 @@
 @charset "UTF-8";
 
+/*   Global Reset and Base Styles */
 * {
 	margin: 0;
 	padding: 0;
@@ -11,49 +12,36 @@ body {
 	transition: background-color 0.3s, color 0.3s;
 }
 
+/* Light Mode - Global */
 body.light-mode {
 	background-color: #f5f5f5;
 	color: #333333;
 }
 
-body.light-mode .navbar {
-	background-color: #ffffff;
-	color: #333333;
-	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-body.light-mode .logo .top, body.light-mode .logo .bottom, body.light-mode .main-nav a,
-	body.light-mode .user-actions a, body.light-mode .tagline, body.light-mode .theme-toggle,
-	body.light-mode .hamburger {
-	color: #333333;
-}
-
-body.light-mode .main-nav a:hover, body.light-mode .user-actions a:hover,
-	body.light-mode .hamburger:hover, body.light-mode .theme-toggle:hover {
-	color: #f57224;
-}
-
+/* Dark Mode - Global */
 body.dark-mode {
 	background-color: #2e2e2e;
 	color: white;
 }
 
-body.dark-mode .navbar {
-	background-color: #1e1e1e;
-	color: white;
-}
-
-body.dark-mode .logo .top, body.dark-mode .logo .bottom, body.dark-mode .main-nav a,
-	body.dark-mode .user-actions a, body.dark-mode .tagline, body.dark-mode .theme-toggle,
-	body.dark-mode .hamburger {
-	color: white;
-}
-
-body.dark-mode .main-nav a:hover, body.dark-mode .user-actions a:hover,
-	body.dark-mode .hamburger:hover, body.dark-mode .theme-toggle:hover {
+.main-nav a.active {
 	color: #f57224;
+	font-weight: bold;
+	border-bottom: 2px solid #f57224;
 }
 
+.cart-count {
+	background-color: #ff0000;
+	color: white;
+	border-radius: 50%;
+	padding: 2px 6px;
+	font-size: 0.8rem;
+	position: relative;
+	top: -10px;
+	left: -5px;
+}
+
+/* Navbar */
 .navbar {
 	position: fixed;
 	top: 0;
@@ -61,7 +49,6 @@ body.dark-mode .main-nav a:hover, body.dark-mode .user-actions a:hover,
 	right: 0;
 	z-index: 1000;
 	padding: 15px 0;
-	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 	transition: transform 0.3s ease-in-out;
 }
 
@@ -69,6 +56,22 @@ body.dark-mode .main-nav a:hover, body.dark-mode .user-actions a:hover,
 	transform: translateY(-100px); /* Hide top bar but show main-nav */
 }
 
+/* Light Mode - Navbar */
+body.light-mode .navbar {
+	background-color: #ffffff;
+	color: #333333;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Dark Mode - Navbar */
+body.dark-mode .navbar {
+	background-color: #1e1e1e;
+	color: white;
+}
+
+/* ==========================================================================
+   Container
+   ========================================================================== */
 .container {
 	width: 90%;
 	max-width: 1200px;
@@ -77,6 +80,9 @@ body.dark-mode .main-nav a:hover, body.dark-mode .user-actions a:hover,
 	flex-direction: column;
 }
 
+/* ==========================================================================
+   Top Bar
+   ========================================================================== */
 .top-bar {
 	display: flex;
 	justify-content: space-between;
@@ -86,38 +92,77 @@ body.dark-mode .main-nav a:hover, body.dark-mode .user-actions a:hover,
 	transition: opacity 0.3s ease-in-out;
 }
 
+/* ==========================================================================
+   Logo and Tagline
+   ========================================================================== */
+.logo-link {
+	text-decoration: none;
+}
+
+.logo-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
 .logo {
-	display: grid;
-	place-items: center;
-	font-family: "Oswald", sans-serif;
-	font-size: 2rem;
-	font-weight: 700;
+	font-family: 'Audiowide', cursive;
+	font-size: 28px;
 	text-transform: uppercase;
-	line-height: 40px;
-	position: relative;
-	letter-spacing: 3px;
+	display: inline-flex;
+	align-items: center;
+	cursor: pointer;
 }
 
-.logo>div {
-	grid-area: 1/1/-1/-1;
+.football {
+	font-size: 30px;
+	margin: 0 4px;
+	transition: transform 0.5s ease-in-out;
 }
 
-.logo .top {
-	clip-path: polygon(0% 0%, 100% 0%, 100% 48%, 0% 58%);
-}
-
-.logo .bottom {
-	clip-path: polygon(0% 60%, 100% 50%, 100% 100%, 0% 100%);
-	color: transparent;
-	background: linear-gradient(177deg, black 53%, white 65%);
-	background-clip: text;
-	-webkit-background-clip: text;
-	transform: translateX(-0.02em);
+.logo:hover .football {
+	transform: rotate(270deg);
 }
 
 .tagline {
+	font-family: 'Rajdhani', sans-serif;
 	font-size: 14px;
 	margin-top: 5px;
+	margin-right: 100px;
+	text-align: center;
+}
+
+/* Light Mode - Logo and Tagline */
+body.light-mode .logo {
+	color: #1c2526;
+}
+
+body.light-mode .football {
+	color: #1c2526;
+}
+
+body.light-mode .tagline {
+	color: #333333;
+}
+
+/* Dark Mode - Logo and Tagline */
+body.dark-mode .logo {
+	color: #e0e0e0;
+}
+
+body.dark-mode .football {
+	color: #e0e0e0;
+}
+
+body.dark-mode .tagline {
+	color: #ffffff;
+}
+
+/* ==========================================================================
+   Hamburger Menu
+   ========================================================================== */
+.hamburger-menu {
+	position: relative;
 }
 
 .hamburger {
@@ -126,14 +171,154 @@ body.dark-mode .main-nav a:hover, body.dark-mode .user-actions a:hover,
 	font-size: 24px;
 	cursor: pointer;
 	margin: 0 20px;
+	transition: color 0.3s ease;
 }
 
+.hamburger i {
+	transition: transform 0.3s ease;
+}
+
+.hamburger:hover i, .hamburger.active i {
+	color: #f57224;
+	transform: scale(1.1);
+}
+
+.hamburger-dropdown {
+	display: none;
+	position: absolute;
+	top: 100%;
+	left: 0;
+	border-radius: 4px;
+	min-width: 200px;
+	z-index: 1000;
+	padding: 8px 0;
+}
+
+.hamburger-dropdown ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.hamburger-dropdown li {
+	margin: 0;
+	position: relative;
+}
+
+.hamburger-dropdown a {
+	display: flex;
+	align-items: center;
+	padding: 10px 16px;
+	text-decoration: none;
+	font-family: 'Rajdhani', sans-serif;
+	font-size: 14px;
+	transition: background-color 0.3s;
+}
+
+.category-icon {
+	margin-left: auto;
+	font-size: 12px;
+	transition: color 0.3s;
+}
+
+.hamburger-menu:hover .hamburger-dropdown, .category-item:hover .subcategory-list
+	{
+	display: block;
+}
+
+/* Subcategory List */
+.subcategory-list {
+	display: none;
+	position: absolute;
+	left: 100%;
+	top: 0;
+	min-width: 200px;
+	border-radius: 4px;
+	padding: 8px 0;
+	z-index: 1000;
+}
+
+.subcategory-list li a {
+	padding: 8px 16px;
+	font-size: 13px;
+}
+
+/* Light Mode - Hamburger Menu */
+body.light-mode .hamburger {
+	color: #333333;
+}
+
+body.light-mode .hamburger:hover, body.light-mode .hamburger.active {
+	color: #f57224;
+}
+
+body.light-mode .hamburger-dropdown, body.light-mode .subcategory-list {
+	background: #ffffff;
+	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+body.light-mode .hamburger-dropdown a, body.light-mode .subcategory-list a
+	{
+	color: #333333;
+}
+
+body.light-mode .hamburger-dropdown a:hover, body.light-mode .subcategory-list a:hover
+	{
+	background: #f1f1f1;
+	color: #f57224;
+}
+
+body.light-mode .category-icon {
+	color: #333333;
+}
+
+body.light-mode .hamburger-dropdown a:hover .category-icon, body.light-mode .category-item:hover .category-icon
+	{
+	color: #f57224;
+}
+
+/* Dark Mode - Hamburger Menu */
+body.dark-mode .hamburger {
+	color: #ffffff;
+}
+
+body.dark-mode .hamburger:hover, body.dark-mode .hamburger.active {
+	color: #f57224;
+}
+
+body.dark-mode .hamburger-dropdown, body.dark-mode .subcategory-list {
+	background: #333333;
+	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .hamburger-dropdown a, body.dark-mode .subcategory-list a
+	{
+	color: #f1f1f1;
+}
+
+body.dark-mode .hamburger-dropdown a:hover, body.dark-mode .subcategory-list a:hover
+	{
+	background: #444444;
+	color: #f57224;
+}
+
+body.dark-mode .category-icon {
+	color: #f1f1f1;
+}
+
+body.dark-mode .hamburger-dropdown a:hover .category-icon, body.dark-mode .category-item:hover .category-icon
+	{
+	color: #f57224;
+}
+
+/* Search Bar */
 .search-bar {
 	display: flex;
 	flex: 1;
 	min-width: 300px;
 	max-width: 500px;
 	margin: 0 20px;
+	align-items: center;
 }
 
 .search-bar input {
@@ -153,6 +338,78 @@ body.dark-mode .main-nav a:hover, body.dark-mode .user-actions a:hover,
 	cursor: pointer;
 }
 
+.search-bar form {
+	display: flex;
+	width: 100%;
+}
+
+.input-wrapper {
+	position: relative;
+	flex: 1;
+	display: flex;
+}
+
+.input-wrapper input {
+	flex: 1;
+	padding-right: 30px; /* leave room for clear button */
+}
+
+.clear-btn {
+	position: absolute;
+	right: 10px;
+	top: 50%;
+	transform: translateY(-50%);
+	background: none !important;
+	background-color: transparent !important;
+	border: none;
+	font-size: 16px;
+	color: #f57224;
+	cursor: pointer;
+	display: none;
+	padding: 0;
+	line-height: 1;
+	box-shadow: none;
+}
+
+.clear-btn:hover {
+	color: #f57224;
+}
+
+body.light-mode .clear-btn {
+	color: #333;
+}
+
+body.light-mode .clear-btn:hover {
+	color: #f57224;
+}
+
+/* Chrome, Safari, Edge */
+.search-bar input:-webkit-autofill {
+	box-shadow: 0 0 0px 1000px transparent inset !important;
+	-webkit-text-fill-color: inherit !important;
+	background-color: transparent !important;
+	transition: background-color 5000s ease-in-out 0s;
+}
+
+body.dark-mode .search-bar input:-webkit-autofill {
+	box-shadow: 0 0 0px 1000px #323232 inset !important;
+	-webkit-text-fill-color: #e0e0e0 !important;
+}
+
+/* Light Mode - Search Bar */
+body.light-mode .search-bar input {
+	background-color: #ffffff;
+	color: #333333;
+}
+
+/* Dark Mode - Search Bar */
+body.dark-mode .search-bar input {
+	background-color: #333333;
+	color: #f1f1f1;
+	border-color: #555555;
+}
+
+/* User Actions */
 .user-actions {
 	display: flex;
 	align-items: center;
@@ -171,15 +428,138 @@ body.dark-mode .main-nav a:hover, body.dark-mode .user-actions a:hover,
 	transition: background-color 0.3s;
 }
 
-.user-actions a:hover, .user-actions .account-btn:hover {
+/* Light Mode - User Actions */
+body.light-mode .user-actions a {
+	color: #333333;
+}
+
+body.light-mode .user-actions a:hover {
+	background-color: rgba(0, 0, 0, 0.1);
+	color: #f57224;
+}
+
+/* Dark Mode - User Actions */
+body.dark-mode .user-actions a {
+	color: white;
+}
+
+body.dark-mode .user-actions a:hover {
+	background-color: rgba(255, 255, 255, 0.1);
+	color: #f57224;
+}
+
+/* ==========================================================================
+   Account Dropdown
+   ========================================================================== */
+.account-dropdown {
+	position: relative;
+	display: inline-block;
+}
+
+.account-btn {
+	background: none;
+	border: none;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 8px 12px;
+	font-size: 14px;
+	border-radius: 4px;
+	transition: background-color 0.3s;
+}
+
+.dropdown-content {
+	display: none;
+	position: absolute;
+	right: 0;
+	min-width: 200px;
+	border-radius: 4px;
+	z-index: 1000;
+	padding: 8px 0;
+}
+
+.dropdown-content a, .dropdown-content button.dropdown-item {
+	color: #333;
+	padding: 10px 16px;
+	text-decoration: none;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	font-size: 14px;
+	width: 100%;
+	text-align: left;
+	background: none;
+	border: none;
+	cursor: pointer;
+	transition: background-color 0.3s;
+}
+
+.dropdown-content form {
+	margin: 0;
+	padding: 0;
+}
+
+.dropdown-content form button {
+	font-family: inherit;
+	font-size: inherit;
+}
+
+.account-dropdown:hover .dropdown-content {
+	display: block;
+}
+
+/* Light Mode - Account Dropdown */
+body.light-mode .account-btn {
+	color: #333333;
+}
+
+body.light-mode .account-btn:hover {
 	background-color: rgba(0, 0, 0, 0.1);
 }
 
-.dark-mode .user-actions a:hover, .dark-mode .user-actions .account-btn:hover
+body.light-mode .dropdown-content {
+	background-color: #fff;
+	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+body.light-mode .dropdown-content a, body.light-mode .dropdown-content button.dropdown-item
 	{
+	color: #333;
+}
+
+body.light-mode .dropdown-content a:hover, body.light-mode .dropdown-content button.dropdown-item:hover
+	{
+	background-color: #f1f1f1;
+}
+
+/* Dark Mode - Account Dropdown */
+body.dark-mode .account-btn {
+	color: white;
+}
+
+body.dark-mode .account-btn:hover {
 	background-color: rgba(255, 255, 255, 0.1);
 }
 
+body.dark-mode .dropdown-content {
+	background-color: #333;
+	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .dropdown-content a, body.dark-mode .dropdown-content button.dropdown-item
+	{
+	color: #f1f1f1;
+}
+
+body.dark-mode .dropdown-content a:hover, body.dark-mode .dropdown-content button.dropdown-item:hover
+	{
+	background-color: #444;
+}
+
+/* ==========================================================================
+   Main Navigation
+   ========================================================================== */
 .main-nav {
 	display: flex;
 	justify-content: space-between;
@@ -220,6 +600,27 @@ body.dark-mode .main-nav a:hover, body.dark-mode .user-actions a:hover,
 	width: 100%;
 }
 
+/* Light Mode - Main Navigation */
+body.light-mode .main-nav a {
+	color: #333333;
+}
+
+body.light-mode .main-nav a:hover {
+	color: #f57224;
+}
+
+/* Dark Mode - Main Navigation */
+body.dark-mode .main-nav a {
+	color: white;
+}
+
+body.dark-mode .main-nav a:hover {
+	color: #f57224;
+}
+
+/* ==========================================================================
+   Theme Toggle
+   ========================================================================== */
 .theme-toggle {
 	background: none;
 	border: none;
@@ -228,99 +629,27 @@ body.dark-mode .main-nav a:hover, body.dark-mode .user-actions a:hover,
 	margin-left: 20px;
 }
 
-/* Account Dropdown Styles */
-.account-dropdown {
-	position: relative;
-	display: inline-block;
+/* Light Mode - Theme Toggle */
+body.light-mode .theme-toggle {
+	color: #333333;
 }
 
-.account-btn {
-	background: none;
-	border: none;
-	color: inherit;
-	cursor: pointer;
-	display: flex;
-	align-items: center;
-	gap: 8px;
-	padding: 8px 12px;
-	font-size: 14px;
-	border-radius: 4px;
-	transition: background-color 0.3s;
+body.light-mode .theme-toggle:hover {
+	color: #f57224;
 }
 
-.account-btn:hover {
-	background-color: rgba(0, 0, 0, 0.1);
+/* Dark Mode - Theme Toggle */
+body.dark-mode .theme-toggle {
+	color: white;
 }
 
-.dark-mode .account-btn:hover {
-	background-color: rgba(255, 255, 255, 0.1);
+body.dark-mode .theme-toggle:hover {
+	color: #f57224;
 }
 
-.dropdown-content {
-	display: none;
-	position: absolute;
-	right: 0;
-	background-color: #fff;
-	min-width: 200px;
-	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-	border-radius: 4px;
-	z-index: 1000;
-	padding: 8px 0;
-}
-
-.dark-mode .dropdown-content {
-	background-color: #333;
-	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-}
-
-/* Unified style for all dropdown items including logout */
-.dropdown-content a, .dropdown-content button.dropdown-item {
-	color: #333;
-	padding: 10px 16px;
-	text-decoration: none;
-	display: flex;
-	align-items: center;
-	gap: 10px;
-	font-size: 14px;
-	width: 100%;
-	text-align: left;
-	background: none;
-	border: none;
-	cursor: pointer;
-	transition: background-color 0.3s;
-}
-
-.dark-mode .dropdown-content a, .dark-mode .dropdown-content button.dropdown-item
-	{
-	color: #f1f1f1;
-}
-
-.dropdown-content a:hover, .dropdown-content button.dropdown-item:hover
-	{
-	background-color: #f1f1f1;
-}
-
-.dark-mode .dropdown-content a:hover, .dark-mode .dropdown-content button.dropdown-item:hover
-	{
-	background-color: #444;
-}
-
-/* Make the logout form button look like other items */
-.dropdown-content form {
-	margin: 0;
-	padding: 0;
-}
-
-.dropdown-content form button {
-	font-family: inherit;
-	font-size: inherit;
-}
-
-.account-dropdown:hover .dropdown-content {
-	display: block;
-}
-
-/* Responsive adjustments */
+/* ==========================================================================
+   Responsive Adjustments
+   ========================================================================== */
 @media ( max-width : 992px) {
 	.top-bar {
 		gap: 15px;
@@ -333,6 +662,21 @@ body.dark-mode .main-nav a:hover, body.dark-mode .user-actions a:hover,
 	.user-actions {
 		margin-left: 0;
 	}
+	.hamburger {
+		margin: 0 10px;
+	}
+	.hamburger-dropdown {
+		left: 0;
+		width: 100%;
+		min-width: 150px;
+	}
+	.subcategory-list {
+		position: static;
+		left: 0;
+		background: inherit;
+		box-shadow: none;
+		padding-left: 20px;
+	}
 }
 
 @media ( max-width : 768px) {
@@ -344,5 +688,16 @@ body.dark-mode .main-nav a:hover, body.dark-mode .user-actions a:hover,
 	}
 	.user-actions span {
 		display: none;
+	}
+	.hamburger {
+		font-size: 20px;
+	}
+	.hamburger-dropdown a {
+		font-size: 12px;
+		padding: 8px 12px;
+	}
+	.subcategory-list a {
+		font-size: 11px;
+		padding: 6px 12px;
 	}
 }

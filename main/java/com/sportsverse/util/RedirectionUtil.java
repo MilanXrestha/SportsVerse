@@ -15,6 +15,7 @@ public class RedirectionUtil {
     public static final String AUTH_PAGE = BASE_PATH + "authentication.jsp";
     public static final String HOME_PAGE = BASE_PATH + "home.jsp";
     public static final String PRODUCT_PAGE = BASE_PATH + "products.jsp";
+    public static final String PROFILE_PAGE = BASE_PATH + "profile.jsp";
     
     public static final String ADMIN_DASHBOARD = BASE_PATH + "dashboard.jsp";
 

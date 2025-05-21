@@ -1,6 +1,7 @@
 package com.sportsverse.controller;
 
-import com.sportsverse.model.CustomerModel;
+import com.sportsverse.model.UserModel;
+import com.sportsverse.model.AddressModel;
 import com.sportsverse.service.RegisterService;
 import com.sportsverse.util.RedirectionUtil;
 import com.sportsverse.util.ValidationUtil;
@@ -12,6 +13,11 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
+/**
+ * RegisterController handles user registration. It extracts user and address
+ * data from the request, validates it, and uses RegisterService to save the
+ * user and address.
+ */
 @WebServlet("/register")
 public class RegisterController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -29,92 +35,125 @@ public class RegisterController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		CustomerModel customer = extractCustomerData(request);
+		UserModel user = extractUserData(request);
+		AddressModel address = extractAddressData(request);
+		String sameAddress = request.getParameter("sameAddress");
 
-		if (!validateCustomerData(customer, request, response))
+		if (!validateRegistrationData(user, address, sameAddress, request, response))
 			return;
 
-		String status = registerService.registerCustomer(customer);
+		// Register the user and get the generated user ID
+		String status = registerService.registerUserAndAddress(user, address, sameAddress);
 
+		// Redirect with registration status
 		redirectionUtil.setMsgAndRedirect(request, response, "status", status, RedirectionUtil.AUTH_PAGE);
 	}
 
-	private CustomerModel extractCustomerData(HttpServletRequest request) {
-		CustomerModel customer = new CustomerModel();
-		customer.setFirstName(request.getParameter("firstName"));
-		customer.setLastName(request.getParameter("lastName"));
-		customer.setEmail(request.getParameter("email"));
-		customer.setUsername(request.getParameter("username"));
-		customer.setPhone(request.getParameter("phone"));
-		customer.setGender(request.getParameter("gender"));
-		customer.setContactMethod(request.getParameter("contactMethod"));
-		customer.setStreetAddress(request.getParameter("streetAddress"));
-		customer.setCity(request.getParameter("city"));
-		customer.setNepalState(request.getParameter("nepalState"));
-		customer.setPassword(request.getParameter("password"));
-		return customer;
+	/**
+	 * Extracts user data from the registration form.
+	 */
+	private UserModel extractUserData(HttpServletRequest request) {
+		UserModel user = new UserModel();
+		user.setFirstName(request.getParameter("firstName"));
+		user.setLastName(request.getParameter("lastName"));
+		user.setEmail(request.getParameter("email"));
+		user.setUsername(request.getParameter("username"));
+		user.setPassword(request.getParameter("password"));
+		user.setPhone(request.getParameter("phone"));
+		user.setGender(request.getParameter("gender"));
+		user.setContactPreference(request.getParameter("contactMethod"));
+		
+		// Dynamically assign role
+		if (user.getUsername() != null && user.getUsername().toLowerCase().startsWith("admin")) {
+		    user.setRole("admin");
+		} else {
+		    user.setRole("customer");
+		}
+		return user;
+	}
+	
+
+	/**
+	 * Extracts address data from the registration form.
+	 */
+	private AddressModel extractAddressData(HttpServletRequest request) {
+		AddressModel address = new AddressModel();
+		address.setStreetAddress(request.getParameter("streetAddress"));
+		address.setCity(request.getParameter("city"));
+		address.setNepalState(request.getParameter("nepalState"));
+		address.setAddressType("Permanent"); // Default to Permanent
+		return address;
 	}
 
-	private boolean validateCustomerData(CustomerModel customer, HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	/**
+	 * Validates both user and address input fields.
+	 */
+	private boolean validateRegistrationData(UserModel user, AddressModel address, String sameAddress,
+			HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		if (validator.isNullOrEmpty(customer.getFirstName()) || !validator.isAlphabetic(customer.getFirstName())) {
+		if (validator.isNullOrEmpty(user.getFirstName()) || !validator.isAlphabetic(user.getFirstName())) {
 			redirectionUtil.setMsgAndRedirect(request, response, "status", "invalidFirstName",
 					RedirectionUtil.AUTH_PAGE);
 			return false;
 		}
 
-		if (validator.isNullOrEmpty(customer.getLastName()) || !validator.isAlphabetic(customer.getLastName())) {
+		if (validator.isNullOrEmpty(user.getLastName()) || !validator.isAlphabetic(user.getLastName())) {
 			redirectionUtil.setMsgAndRedirect(request, response, "status", "invalidLastName",
 					RedirectionUtil.AUTH_PAGE);
 			return false;
 		}
 
-		if (!validator.isValidEmail(customer.getEmail())) {
+		if (!validator.isValidEmail(user.getEmail())) {
 			redirectionUtil.setMsgAndRedirect(request, response, "status", "invalidEmail", RedirectionUtil.AUTH_PAGE);
 			return false;
 		}
 
-		if (!validator.isAlphanumericStartingWithLetter(customer.getUsername())) {
+		if (!validator.isAlphanumericStartingWithLetter(user.getUsername())) {
 			redirectionUtil.setMsgAndRedirect(request, response, "status", "invalidUsername",
 					RedirectionUtil.AUTH_PAGE);
 			return false;
 		}
 
-		if (!validator.isValidPhoneNumber(customer.getPhone())) {
+		if (!validator.isValidPhoneNumber(user.getPhone())) {
 			redirectionUtil.setMsgAndRedirect(request, response, "status", "invalidPhone", RedirectionUtil.AUTH_PAGE);
 			return false;
 		}
 
-		if (!validator.isValidGender(customer.getGender())) {
+		if (!validator.isValidGender(user.getGender())) {
 			redirectionUtil.setMsgAndRedirect(request, response, "status", "invalidGender", RedirectionUtil.AUTH_PAGE);
 			return false;
 		}
 
-		if (validator.isNullOrEmpty(customer.getContactMethod())) {
+		if (validator.isNullOrEmpty(user.getContactPreference())) {
 			redirectionUtil.setMsgAndRedirect(request, response, "status", "invalidContactMethod",
 					RedirectionUtil.AUTH_PAGE);
 			return false;
 		}
 
-		if (validator.isNullOrEmpty(customer.getStreetAddress())) {
+		if (validator.isNullOrEmpty(address.getStreetAddress())) {
 			redirectionUtil.setMsgAndRedirect(request, response, "status", "invalidStreetAddress",
 					RedirectionUtil.AUTH_PAGE);
 			return false;
 		}
 
-		if (validator.isNullOrEmpty(customer.getCity())) {
+		if (validator.isNullOrEmpty(address.getCity())) {
 			redirectionUtil.setMsgAndRedirect(request, response, "status", "invalidCity", RedirectionUtil.AUTH_PAGE);
 			return false;
 		}
 
-		if (validator.isNullOrEmpty(customer.getNepalState())) {
+		if (validator.isNullOrEmpty(address.getNepalState())) {
 			redirectionUtil.setMsgAndRedirect(request, response, "status", "invalidState", RedirectionUtil.AUTH_PAGE);
 			return false;
 		}
 
-		if (validator.isNullOrEmpty(customer.getPassword()) || !validator.isValidPassword(customer.getPassword())) {
-			redirectionUtil.setMsgAndRedirect(request, response, "status", "invalidPasswordFormat",
+		if (validator.isNullOrEmpty(sameAddress) || (!sameAddress.equals("yes") && !sameAddress.equals("no"))) {
+			redirectionUtil.setMsgAndRedirect(request, response, "status", "invalidSameAddress",
+					RedirectionUtil.AUTH_PAGE);
+			return false;
+		}
+
+		if (validator.isNullOrEmpty(user.getPassword()) || !validator.isValidPassword(user.getPassword())) {
+			redirectionUtil.setMsgAndRedirect(request, response, "status", "invalidPassword",
 					RedirectionUtil.AUTH_PAGE);
 			return false;
 		}

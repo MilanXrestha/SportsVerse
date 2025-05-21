@@ -38,7 +38,7 @@ public class ValidationUtil {
 	
 	// 5. Validate if a string is a valid email address
 	public boolean isValidEmail(String email) {
-		String emailRegex = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
+		String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
 		return !isNullOrEmpty(email) && Pattern.matches(emailRegex, email);
 	}
 
