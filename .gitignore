@@ -1,0 +1,19 @@
+# Eclipse
+.classpath
+.project
+.settings/
+
+# Build output
+build/
+target/
+*.class
+
+# Logs
+*.log
+
+# IDE-specific
+.idea/
+*.iml
+
+# Exclude root-level main/ if it’s not needed
+main/
