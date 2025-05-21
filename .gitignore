@@ -15,5 +15,5 @@ target/
 .idea/
 *.iml
 
-# Exclude root-level main/ if it’s not needed
+# Exclude root-level main/ if not needed
 main/

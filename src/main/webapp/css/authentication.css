@@ -1,0 +1,710 @@
+@charset "UTF-8";
+
+/* Importing Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Michroma&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@700&display=swap');
+
+/* General Reset */
+*, *::before, *::after {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/* Default font family for body and input fields */
+html, body {
+    height: 100%;
+    font-family: 'Rajdhani', sans-serif;
+    background: linear-gradient(135deg, #f5f7fa, #e4ecf4);
+    overflow-y: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+/* Ensure inputs and selects use the same font */
+input, select {
+    font-family: 'Rajdhani', sans-serif;
+}
+
+/* Main container for the page */
+main {
+    width: 100%;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f5f7fa, #e4ecf4);
+    padding: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Box for the form and carousel */
+.box {
+    position: relative;
+    width: 100%;
+    max-width: 1020px;
+    height: 640px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+/* Inner box to center the form and carousel */
+.inner-box {
+    position: absolute;
+    width: calc(100% - 65px);
+    height: calc(100% - 65px);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Form wrapper that holds the form */
+.forms-wrap {
+    position: absolute;
+    height: 100%;
+    width: 45%;
+    top: 0;
+    left: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    transition: 0.8s ease-in-out;
+}
+
+/* Style for form inputs */
+form {
+    max-width: 300px;
+    width: 100%;
+    margin: 0 auto;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    grid-column: 1/2;
+    grid-row: 1/2;
+    transition: opacity 0.02s 0.4s;
+}
+
+/* Hide the signup form by default */
+form.sign-up-form {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Heading styles */
+.heading {
+    margin-top: 20px;
+    margin-bottom: 35px;
+}
+
+.heading h2 {
+    font-size: 34px;
+    font-weight: 600;
+    color: black;
+}
+
+.heading h6 {
+    color: #bababa;
+    font-weight: 400;
+    font-size: 12px;
+    display: inline;
+    padding: 5px;
+}
+
+/* Link toggle for switching forms */
+.toggle {
+    color: #151111;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.toggle:hover {
+    color: #8371fd;
+}
+
+/* Styling for input fields */
+.input-wrap {
+    position: relative;
+    height: 37px;
+    margin-bottom: 30px;
+}
+
+.input-field {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid #bbb;
+    border-radius: 5px;
+    outline: none;
+    padding: 0 10px;
+    font-size: 15px;
+    color: #151111;
+    transition: 0.4s;
+}
+
+label {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 15px;
+    color: #bbb;
+    pointer-events: none;
+    transition: 0.4s;
+    z-index: 1;
+}
+
+.input-field.active {
+    border-color: #151111;
+}
+
+.input-field.active + label {
+    font-size: 14px;
+    top: -10px;
+    color: #151111;
+    z-index: 2;
+}
+
+/* Styling for select elements */
+.select-wrap {
+    position: relative;
+    height: 37px;
+    margin-bottom: 30px;
+}
+
+.select-wrap .input-field {
+    appearance: none;
+    -webkit-appearance: none;
+    padding: 0 30px 0 10px;
+    color: #aaa;
+    background: rgba(255, 255, 255, 0.8) url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><path fill="%23aaa" d="M7 10l5 5 5-5z"/></svg>') no-repeat right 10px center;
+    transition: color 0.4s, border-color 0.4s;
+}
+
+.select-wrap .input-field.active {
+    color: #151111;
+}
+
+.select-wrap .input-field.active + label {
+    font-size: 14px;
+    top: -10px;
+    color: #151111;
+    z-index: 2;
+}
+
+/* Styling for the login/signup button */
+.sign-btn {
+    display: inline-block;
+    width: 100%;
+    height: 43px;
+    background-color: #151111;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 13px;
+    font-size: 13px;
+    margin: 10px 0;
+    transition: all 0.3s ease;
+}
+
+.sign-btn:hover {
+    background-color: #8371fd;
+    transform: scale(1.02);
+}
+
+.sign-btn:active {
+    transform: scale(0.98);
+}
+
+/* Text link styling */
+.text {
+    color: #bbb;
+    font-size: 11px;
+    margin-top: 16px;
+}
+
+.text a {
+    color: #bbb;
+    transition: 0.3s;
+}
+
+.text a:hover {
+    color: #8371fd;
+}
+
+/* Styling for switching between sign-in and sign-up form */
+main.sign-up-mode form.sign-in-form {
+    opacity: 0;
+    pointer-events: none;
+}
+
+main.sign-up-mode form.sign-up-form {
+    opacity: 1;
+    pointer-events: all;
+}
+
+main.sign-up-mode .forms-wrap {
+    left: 55%;
+}
+
+main.sign-up-mode .carousel {
+    left: 0%;
+}
+
+/* Carousel styles */
+.carousel {
+    position: absolute;
+    height: 100%;
+    width: 55%;
+    left: 45%;
+    top: 0;
+    background-color: #000;
+    border-radius: 32px;
+    display: grid;
+    grid-template-rows: 1fr auto;
+    padding-bottom: 32px;
+    overflow: hidden;
+    transition: 0.8s ease-in-out;
+}
+
+/* Styling for images in the carousel */
+.images-wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+}
+
+.image {
+    width: 100%;
+    object-fit: cover;
+    grid-column: 1/2;
+    grid-row: 1/2;
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.5s;
+}
+
+.img-1 {
+    transform: scale(1.3) translateY(70px);
+    object-fit: cover;
+}
+
+.img-2 {
+    transform: scale(1.3) translateY(30px);
+}
+
+.img-3 {
+    transform: scale(1.2);
+}
+
+.image.show {
+    opacity: 1;
+}
+
+/* Styling for text slider */
+.text-slider {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-direction: column;
+    padding: 0 16px;
+    position: relative;
+    height: 100%;
+    bottom: 48px;
+}
+
+.text-wrap {
+    max-height: 35px;
+    overflow: hidden;
+    margin-bottom: 40px;
+}
+
+.text-group {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    transform: translateY(0);
+    transition: 0.5s;
+    color: #fff;
+}
+
+.text-group h2 {
+    line-height: 35px;
+    font-weight: 600;
+    font-size: 26px;
+    color: #fff;
+}
+
+/* Styling for carousel bullets */
+.bullets {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    bottom: 16px;
+    width: 100%;
+    z-index: 10;
+}
+
+.bullets span {
+    display: block;
+    width: 8px;
+    height: 8px;
+    background-color: #aaa;
+    margin: 0 4px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.bullets span.active {
+    width: 18px;
+    background-color: #151111;
+    border-radius: 10px;
+}
+
+/* Logo styling */
+.logo {
+    font-family: 'Audiowide', cursive;
+    font-size: 28px;
+    color: #000;
+    margin-top: -120px;
+    padding-bottom: 30px;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+}
+
+.football {
+    font-size: 30px;
+    margin: 0 4px;
+    color: #000;
+    transition: transform 0.5s ease-in-out;
+}
+
+.logo:hover .football {
+    transform: rotate(270deg);
+}
+
+/* Password field toggle button */
+.password-wrap {
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+}
+
+/* Styling for options checkbox and radio */
+.options {
+    margin: 16px 0;
+    font-size: 13px;
+    color: #151111;
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding-left: 5px;
+    cursor: pointer;
+}
+
+.options input[type="checkbox"], .terms-options input[type="checkbox"] {
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #bbb;
+    margin-right: 10px;
+    cursor: pointer;
+    position: relative;
+}
+
+.options input[type="checkbox"]:checked::before, .terms-options input[type="checkbox"]:checked::before {
+    content: '\2713';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 12px;
+    color: #8371fd;
+}
+
+.options input[type="checkbox"]:checked, .terms-options input[type="checkbox"]:checked {
+    border-color: #8371fd;
+}
+
+.options label {
+    position: relative;
+    left: 0;
+    cursor: pointer;
+    font-size: 13px;
+    color: #151111;
+    transform: none;
+    pointer-events: auto;
+}
+
+
+/* Google sign-in button */
+.google-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 43px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 13px;
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.3s;
+    margin: 8px 0;
+}
+
+.google-btn img {
+    width: 18px;
+    height: 18px;
+}
+
+.google-btn:hover {
+    background-color: #e8f0fe;
+    color: #174ea6;
+}
+
+/* Multi-step form styles */
+.step-indicators {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    margin-bottom: 30px;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.step-indicator {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: #777;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 2;
+}
+
+.step-indicator.active {
+    background-color: #151111;
+    color: white;
+}
+
+.progress-bar {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background-color: #ddd;
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+.progress-fill {
+    height: 100%;
+    background-color: #151111;
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+/* Step Navigation */
+.step {
+    display: none;
+    min-height: 450px;
+}
+
+.step.active {
+    display: block;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.step-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 30px;
+}
+
+.step-buttons .sign-btn {
+    flex: 1;
+}
+
+/* Error state */
+.input-field.error {
+    border-color: #ff4d4d;
+}
+
+.error-text {
+    display: none;
+    color: #ff8080;
+    font-size: 12px;
+    position: relative; 
+    margin-left: 12px;
+    top: 42px;
+}
+
+.error-text.show {
+    display: block;
+}
+
+.step.shake {
+    animation: shake 0.5s ease;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-5px); }
+    40%, 80% { transform: translateX(5px); }
+}
+
+/* Password Strength Meter */
+.strength-text {
+	font-size: 13px;
+	color: #999;
+	text-align: left;
+}
+
+.password-strength {
+	margin-top: 22px;
+	margin-bottom: 30px;
+	height: 10px;
+	background-color: #e0e0e0;
+	border-radius: 5px;
+	overflow: hidden;
+	position: relative;
+	border-radius: 5px;
+}
+
+.strength-meter {
+	height: 100%;
+	width: 0;
+	transition: width 0.3s ease;
+}
+
+
+/* Modal Style: Simplified popup with a minimal, Nike-inspired design */
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Lighter overlay for a cleaner look */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.popup.show {
+    display: flex;
+    animation: scaleUp 0.3s ease-out;
+}
+
+.popup-content {
+    background: #fff; /* White background like Nike's */
+    padding: 30px 20px;
+    border-radius: 15px; /* Rounded corners */
+    text-align: center;
+    width: 90%;
+    max-width: 400px; /* Slightly smaller for a minimal look */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    position: relative;
+    color: #000; /* Black text for contrast */
+    font-family: 'Rajdhani', sans-serif;
+}
+
+.popup-content::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border-radius: 15px;
+    background: linear-gradient(45deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.05)); /* Subtle border glow */
+    z-index: -1;
+    filter: blur(5px);
+}
+
+.error-msg, .success-msg {
+    font-size: 24px; /* Larger for emphasis like Nike's "25% OFF" */
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: #000;
+}
+
+.success-msg a, .error-msg a {
+    color: #000;
+    text-decoration: underline;
+    transition: color 0.3s;
+}
+
+.success-msg a:hover, .error-msg a:hover {
+    color: #555;
+}
+
+.popup button {
+    padding: 12px 30px;
+    border-radius: 50px; /* More rounded button */
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 1px;
+    border: none;
+    background: #000; /* Black button like Nike's */
+    color: #fff;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.popup button:hover {
+    background: #333; /* Slightly lighter on hover */
+}
+
+.popup button:active {
+    background: #555;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes scaleUp {
+    from { transform: scale(0.9); }
+    to { transform: scale(1); }
+}
